@@ -1,0 +1,28 @@
+---
+
+# Configuration of custom APT preferences.
+rspamd_apt_preferences_dependent_list:
+
+  - package: '*'
+    pin: 'release xenial'
+    priority: '40'
+    filename: "xenial.pref"
+
+  - package: 'exim4-base exim4-config eximon4'
+    version: "4.86"
+    reason: 'Support rspamd in exim'
+    priority: '600'
+    suffix: '_exim'
+    role: 'le9i0nx.rspamd'
+
+rspamd_repositories_key:
+
+  - id: "3FA347D5E599BE4595CA2576FFA232EDBF21E25E"
+    keyserver: "pgp.mit.edu"
+
+rspamd_repositories:
+
+  - repo: 'deb http://rspamd.com/apt-stable/ trusty main'
+  - repo: 'deb http://archive.ubuntu.com/ubuntu xenial main'
+
+## vim: foldmethod=marker:tabstop=2:shiftwidth=2:softtabstop=2

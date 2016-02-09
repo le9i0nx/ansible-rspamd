@@ -1,0 +1,11 @@
+---
+
+- name: install required packages
+  apt:
+    name: '{{ item }}'
+    state: 'present'
+    install_recommends: False
+  with_flattened:
+    - 'rspamd'
+
+## vim: foldmethod=marker:tabstop=2:shiftwidth=2:softtabstop=2
