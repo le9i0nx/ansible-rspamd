@@ -9,23 +9,7 @@ This role requires at least Ansible `v2.0.0.1-1`. To install it, run:
 
 ### Documentation
 
-playbook
-```
----
-
-- name: rspamd install
-  hosts: pve
-
-  roles:
-
-    - role: le9i0nx.rspamd
-      tags: [ 'role::rspamd' ]
-```
-
-cat ./group_vars/pve.yml
-```
-
-```
+[playbook](https://github.com/le9i0nx/ansible-root/blob/master/service/rspamd.yml)
 
 ### Role dependencies
 
