@@ -17,8 +17,7 @@ rspamd_apt_preferences_dependent_list:
 
 rspamd_repositories_key:
 
-  - id: "3FA347D5E599BE4595CA2576FFA232EDBF21E25E"
-    keyserver: "pgp.mit.edu"
+  - url: "https://rspamd.com/apt-stable/gpg.key"
 
 rspamd_repositories:
 
