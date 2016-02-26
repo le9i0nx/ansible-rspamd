@@ -24,4 +24,7 @@ rspamd_repositories:
   - repo: 'deb http://rspamd.com/apt-stable/ trusty main'
   - repo: 'deb http://archive.ubuntu.com/ubuntu xenial main'
 
+rspamd_ferm_dependent_rules: []
+
+
 ## vim: foldmethod=marker:tabstop=2:shiftwidth=2:softtabstop=2
