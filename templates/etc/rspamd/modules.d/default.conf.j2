@@ -1,0 +1,8 @@
+{%  if item|d() %}
+{%    for key, value in item.iteritems() %}
+{%      set tabs = [] %}
+{%      for i in tabs %}{{i}}{% endfor %}{{ key }} {
+{%      include 'nested_structure.j2' %}
+{%      for i in tabs %}{{i}}{% endfor %}}
+{%    endfor %}
+{%  endif %}
