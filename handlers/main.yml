@@ -1,0 +1,12 @@
+---
+
+- name: rspamd test config
+  command: rspamd -t -u _rspamd
+  notify: rspamd restart
+
+- name: rspamd restart
+  service:
+    name:  rspamd
+    state: restarted
+
+## vim: foldmethod=marker:tabstop=2:shiftwidth=2:softtabstop=2

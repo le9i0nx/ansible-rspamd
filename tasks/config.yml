@@ -2,12 +2,12 @@
 
 - name: Configure modules
   template:
-    src: 'etc/rspamd/modules.d/default.conf.j2'
-    dest: '/etc/rspamd/modules.d/{{ item }}.conf'
+    src: "etc/rspamd/modules.d/{{ item.type | default('default') }}.conf.j2"
+    dest: '/etc/rspamd/modules.d/{{ item.name }}.conf'
     owner: 'root'
     group: 'root'
     mode: '0644'
   with_items: [ '{{ rspamd__modules }}' ]
-  notify: [ 'rspamd reload' ]
+  notify: [ 'rspamd test config' ]
 
 ## vim: foldmethod=marker:tabstop=2:shiftwidth=2:softtabstop=2

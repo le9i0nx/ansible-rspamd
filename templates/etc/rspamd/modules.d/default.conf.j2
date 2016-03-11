@@ -1,5 +1,6 @@
-{%  if item|d() %}
-{%    for key, value in item.iteritems() %}
+#{{ ansible_managed }}
+{%  if item.data is mapping %}
+{%    for key, value in item.data|dictsort %}
 {%      set tabs = [] %}
 {%      for i in tabs %}{{i}}{% endfor %}{{ key }} {
 {%      include 'nested_structure.j2' %}

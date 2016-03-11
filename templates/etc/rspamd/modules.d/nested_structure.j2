@@ -1,20 +1,29 @@
-{%  if value|d() %}
+{%  if value is mapping %}
 {%    set tabs = tabs + ['    '] %}
-{%    for key, value in value.iteritems() %}
+{%    for key, value in value|dictsort %}
 {%      if key == 'raw' %}
-{% for i in tabs %}{{i}}{% endfor %}{{ value }}
+{%        for listes in value %}
+{%          for i in tabs %}{{i}}{% endfor %}{{ listes }}
+{%        endfor %}
 {%      elif value is string %}
-{% for i in tabs %}{{i}}{% endfor %}{{ key }} = "{{ value }}";
+{%        for i in tabs %}{{i}}{% endfor %}{{ key }} = "{{ value }}";
 {%      elif value == True %}
-{% for i in tabs %}{{i}}{% endfor %}{{ key }} = {{ value }};
+{%        for i in tabs %}{{i}}{% endfor %}{{ key }} = true;
 {%      elif value == False %}
-{% for i in tabs %}{{i}}{% endfor %}{{ key }} = {{ value }};
+{%        for i in tabs %}{{i}}{% endfor %}{{ key }} = false;
+{%      elif value is iterable %}
+{%        if value is mapping %}
+
+{%          for i in tabs %}{{i}}{% endfor %}{{ key }} {
+{%          include 'nested_structure.j2' %}
+{%          for i in tabs %}{{i}}{% endfor %}}
+{%        else %}
+{%          for listes in value %}
+{%            for i in tabs %}{{i}}{% endfor %}{{ key }} = "{{ listes }}";
+{%          endfor %}
+{%        endif %}
 {%      else %}
-
-{%        for i in tabs %}{{i}}{% endfor %}{{ key }} {
-{%        include 'nested_structure.j2' %}
-{%        for i in tabs %}{{i}}{% endfor %}}
-
+{%        for i in tabs %}{{i}}{% endfor %}{{ key }} = {{ value }};
 {%      endif %}
 {%    endfor %}
 {%  endif %}
