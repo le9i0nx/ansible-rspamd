@@ -1,13 +1,35 @@
 ---
 
-- name: Configure modules
+- name: Create directories
+  file:
+    path:   '{{ item.path }}'
+    state:  '{{ item.state  | default("directory") }}'
+    owner:  '{{ item.owner  | default("root") }}'
+    group:  '{{ item.group  | default("root") }}'
+    mode:   '{{ item.mode   | default("0755") }}'
+  with_items:
+    - { path: '/etc/rspamd/local.d' }
+  when: (item.path is defined and item.path)
+
+
+- name: Configure local.d
   template:
-    src: "etc/rspamd/modules.d/{{ item.type | default('default') }}.conf.j2"
-    dest: '/etc/rspamd/modules.d/{{ item.name }}.conf'
+    src: "etc/rspamd/local.d/{{ item.type | default('default') }}.conf.j2"
+    dest: '/etc/rspamd/local.d/{{ item.name }}.conf'
     owner: 'root'
     group: 'root'
     mode: '0644'
-  with_items: [ '{{ rspamd__modules }}' ]
+  with_items: [ '{{ rspamd__local_d }}' ]
+  notify: [ 'rspamd test config' ]
+
+- name: Configure rspamd.conf.local
+  template:
+    src: "etc/rspamd/local.d/default.conf.j2"
+    dest: '/etc/rspamd/rspamd.conf.local'
+    owner: 'root'
+    group: 'root'
+    mode: '0644'
+  with_items: [ '{{ rspamd__local }}' ]
   notify: [ 'rspamd test config' ]
 
 ## vim: foldmethod=marker:tabstop=2:shiftwidth=2:softtabstop=2

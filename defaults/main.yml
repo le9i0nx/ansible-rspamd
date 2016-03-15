@@ -26,72 +26,35 @@ rspamd_repositories:
 
 rspamd_ferm_dependent_rules: []
 
-# .. envvar:: rspamd__modules
+# .. envvar:: rspamd__local
+#
+rspamd__local:
+
+  - data:
+      rbl:
+        raw:
+          - '.include(try=true,priority=1) "$LOCAL_CONFDIR/local.d/rbl.conf"'
+      metric "default":
+        raw:
+          - '.include(try=true,priority=1) "$LOCAL_CONFDIR/local.d/metric.conf"'
+
+# .. envvar:: rspamd__local_d
 #
 # This variable contains a list of modules.
 # Each module is embedded in the configuration of the natural form.
 # Except for lines beginning with "raw: ["string","string"]".
 # These strings are passed as is.
-rspamd__modules:
+rspamd__local_d:
+
+  - name: "metric"
+    data:
+      metric:
+        raw:
+          - "# test"
 
   - name: "rbl"
     data:
-      rbl:
-        default_from: true
-        default_received: false
-        default_exclude_users: true
         rbls:
-          spamhaus:
-            symbol: "RBL_SPAMHAUS"
-            rbl: "zen.spamhaus.org"
-            ipv6: true
-            unknown: true
-            returncodes:
-              RBL_SPAMHAUS_SBL:   "127.0.0.2"
-              RBL_SPAMHAUS_CSS:   "127.0.0.3"
-              RBL_SPAMHAUS_XBL:   "127.0.0.4"
-              RBL_SPAMHAUS_XBL1:  "127.0.0.5"
-              RBL_SPAMHAUS_XBL2:  "127.0.0.6"
-              RBL_SPAMHAUS_XBL3:  "127.0.0.7"
-              RBL_SPAMHAUS_PBL:   "127.0.0.10"
-              RBL_SPAMHAUS_PBL1:  "127.0.0.11"
-          spamhaus_xbl:
-            symbol: "RECEIVED_SPAMHAUS_XBL"
-            rbl: "xbl.spamhaus.org"
-            ipv6: true
-            received: true
-            from: false
-            ignore_whitelists: true
-          spamhaus_swl:
-            symbol: "RWL_SPAMHAUS_WL"
-            rbl: "swl.spamhaus.org"
-            ipv6: true
-            is_whitelist: true
-            unknown: true
-            whitelist_exception: "RWL_SPAMHAUS_WL"
-            returncodes:
-              RWL_SPAMHAUS_WL_IND: "127.0.2.2"
-              RWL_SPAMHAUS_WL_TRANS: "127.0.2.3"
-              RWL_SPAMHAUS_WL_IND_EXP: "127.0.2.102"
-              RWL_SPAMHAUS_WL_TRANS_EXP: "127.0.2.103"
-          mailspike_bl:
-            symbol: "RBL_MAILSPIKE"
-            unknown: true
-            rbl: "bl.mailspike.net"
-            returncodes:
-              RBL_MAILSPIKE_ZOMBIE: "127.0.0.2"
-              RBL_MAILSPIKE_WORST: "127.0.0.10"
-              RBL_MAILSPIKE_VERYBAD: "127.0.0.11"
-              RBL_MAILSPIKE_BAD: "127.0.0.12"
-          senderscore:
-            symbol: "RBL_SENDERSCORE"
-            rbl: "bl.score.senderscore.com"
-          abusech:
-            symbol: "RBL_ABUSECH"
-            rbl: "spam.abuse.ch"
-          uceprotect1:
-            symbol: "RBL_UCEPROTECT_LEVEL1"
-            rbl: "dnsbl-1.uceprotect.net"
           sorbs:
             symbol: "RBL_SORBS"
             rbl: "dnsbl.sorbs.net"
@@ -108,14 +71,6 @@ rspamd__modules:
               RBL_SORBS_DUL: "127.0.0.10"
               RBL_SORBS_BLOCK: "127.0.0.8"
               RBL_SORBS_ZOMBIE: "127.0.0.9"
-          sem:
-            symbol: "RBL_SEM"
-            rbl: "bl.spameatingmonkey.net"
-          semIPv6:
-            symbol: "RBL_SEM_IPV6"
-            rbl: "bl.ipv6.spameatingmonkey.net"
-            ipv4: false
-            ipv6: true
           dnswl:
             symbol: "RCVD_IN_DNSWL"
             rbl: "list.dnswl.org"
@@ -133,15 +88,5 @@ rspamd__modules:
               RCVD_IN_DNSWL_MED: "127.0.%d+.2"
               RCVD_IN_DNSWL_HI: "127.0.%d+.3"
               DNSWL_BLOCKED: "127.0.0.255"
-          rambleremails:
-            symbol: "RAMBLER_EMAILBL"
-            rbl: "email-bl.rambler.ru"
-            from: false
-            emails: true
-            exclude_users: false
-            exclude_private_ips: false
-            exclude_local: false
-            ignore_whitelists: true
-
 
 ## vim: foldmethod=marker:tabstop=2:shiftwidth=2:softtabstop=2
