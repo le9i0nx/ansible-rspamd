@@ -1,0 +1,25 @@
+#{{ ansible_managed }}
+{%  if item.data is defined %}
+metric "default" {
+    group {
+        name = "rbl";
+{%    for rbl in item.data %}
+        symbol {
+            description = "Unrecognised result from {{ rbl }} RBL";
+            name = "RBL_{{ rbl | replace('.','_') | replace('-','_') }}";
+            weight = 1.0;
+        }
+{%    endfor %}
+    }
+}
+rbl {
+    rbls {
+{%    for rbl in item.data %}
+        {{ rbl | replace('.','_') | replace('-','_') }} {
+            rbl = "{{ rbl }}";
+            symbol = "RBL_{{ rbl | replace('.','_') | replace('-','_') }}";
+        }
+{%    endfor %}
+    }
+}
+{%  endif %}
