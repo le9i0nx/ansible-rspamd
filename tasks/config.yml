@@ -19,7 +19,18 @@
     owner: 'root'
     group: 'root'
     mode: '0644'
-  with_items: [ '{{ rspamd__conf_d }}' ]
+  with_items:
+    - '{{ rspamd__conf_d }}'
+    - '{{ rspamd__conf_d_default }}'
+  notify: [ 'rspamd test config' ]
+
+- name: Configure conf.d
+  template:
+    src: "etc/rspamd/worker-controller.inc.j2"
+    dest: '/etc/rspamd/worker-controller.inc'
+    owner: 'root'
+    group: '_rspamd'
+    mode: '0640'
   notify: [ 'rspamd test config' ]
 
 - name: Configure rspamd.conf.local
