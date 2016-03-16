@@ -8,28 +8,27 @@
     group:  '{{ item.group  | default("root") }}'
     mode:   '{{ item.mode   | default("0755") }}'
   with_items:
-    - { path: '/etc/rspamd/local.d' }
+    - { path: '/etc/rspamd/conf.d' }
   when: (item.path is defined and item.path)
 
 
-- name: Configure local.d
+- name: Configure conf.d
   template:
-    src: "etc/rspamd/local.d/{{ item.type | default('default') }}.conf.j2"
-    dest: '/etc/rspamd/local.d/{{ item.name }}.conf'
+    src: "etc/rspamd/conf.d/{{ item.type | default('default') }}.conf.j2"
+    dest: '/etc/rspamd/conf.d/{{ item.name }}.conf'
     owner: 'root'
     group: 'root'
     mode: '0644'
-  with_items: [ '{{ rspamd__local_d }}' ]
+  with_items: [ '{{ rspamd__conf_d }}' ]
   notify: [ 'rspamd test config' ]
 
 - name: Configure rspamd.conf.local
   template:
-    src: "etc/rspamd/local.d/default.conf.j2"
+    src: "etc/rspamd/rspamd.conf.local.j2"
     dest: '/etc/rspamd/rspamd.conf.local'
     owner: 'root'
     group: 'root'
     mode: '0644'
-  with_items: [ '{{ rspamd__local }}' ]
   notify: [ 'rspamd test config' ]
 
 ## vim: foldmethod=marker:tabstop=2:shiftwidth=2:softtabstop=2
