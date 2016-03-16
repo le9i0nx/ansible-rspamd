@@ -1,0 +1,11 @@
+#{{ ansible_managed }}
+# Included from top-level .conf file
+
+{%  if rspamd__password is defined %}
+type = "controller";
+count = 1;
+password = "{{ rspamd__password }}";
+secure_ip = "127.0.0.1";
+secure_ip = "::1";
+static_dir = "${WWWDIR}";
+{%  endif %}

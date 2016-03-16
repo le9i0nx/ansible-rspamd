@@ -26,12 +26,22 @@ rspamd_repositories:
 
 rspamd_ferm_dependent_rules: []
 
-# .. envvar:: rspamd__local_d
+# .. envvar:: rspamd__password
+#
+# The password for the Web interface.
+rspamd__password: "q1"
+
+# .. envvar:: rspamd__conf_d_default
+#
+rspamd__conf_d_default: []
+
+# .. envvar:: rspamd__conf_d
 #
 # This variable contains a list of modules.
 # Each module is embedded in the configuration of the natural form.
 # Except for lines beginning with "raw: ["string","string"]".
 # These strings are passed as is.
+#
 rspamd__conf_d:
 
   - name: "rbl_sorbs"
