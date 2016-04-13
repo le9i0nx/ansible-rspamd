@@ -24,7 +24,7 @@
     - '{{ rspamd__conf_d_default }}'
   notify: [ 'rspamd test config' ]
 
-- name: Configure conf.d
+- name: Configure worker-controller.inc
   template:
     src: "etc/rspamd/worker-controller.inc.j2"
     dest: '/etc/rspamd/worker-controller.inc'
