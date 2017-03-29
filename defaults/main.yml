@@ -22,7 +22,9 @@ rspamd_repositories_key:
 rspamd_repositories:
 
   - repo: 'deb http://rspamd.com/apt-stable/ trusty main'
+    mode: '0444'
   - repo: 'deb http://archive.ubuntu.com/ubuntu xenial main'
+    mode: '0444'
 
 rspamd_ferm_dependent_rules: []
 
